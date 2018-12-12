@@ -8,7 +8,7 @@ const Header = () => {
         <header>
             <Link to={'/'}>
 
-                <img src="/img/logo.png" alt="logo"/>
+                <img src="./img/logo.png" alt="logo"/>
 
             </Link>
         </header>
