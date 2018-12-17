@@ -12,8 +12,9 @@ import Contacto from "./Contact/Contacto";
 export default class Router extends Component {
 
     state = {
-        productos: []
-    }
+        productos: [],
+        terminoBusca : ''
+    };
 
     componentWillMount() {
         this.setState({
@@ -21,7 +22,36 @@ export default class Router extends Component {
         })
     }
 
+    busquedaProducto = (busqueda) => {
+        if (busqueda.length > 3) {
+            this.setState({
+                terminoBusca: busqueda
+            })
+        } else {
+            this.setState({
+                terminoBusca: ''
+            })
+        }
+    };
+
     render() {
+
+        let productos = [...this.state.productos];
+        let busqueda = this.state.terminoBusca;
+        let resultado;
+
+        if (busqueda !== '') {
+            resultado = productos.filter( (producto) => (
+                producto.nombre.toLowerCase().indexOf( busqueda.toLowerCase() ) !== -1
+            ))
+        } else {
+            resultado = productos;
+        }
+
+
+
+
+
         return (
             <BrowserRouter>
                 <div className="contenedor">
@@ -35,15 +65,17 @@ export default class Router extends Component {
 
                         <Route exact path='/' render={() => (
                             <Productos
-                                productos={this.state.productos}
+                                productos={resultado}
+                                busquedaProducto={ this.busquedaProducto }
                             />
                         )}/>
 
-                        <Route exact path='/nosotros' component={Nosotros}/>
+                        <Route path='/nosotros' component={Nosotros}/>
 
                         <Route exact path='/productos' render={() => (
                             <Productos
-                                productos={this.state.productos}
+                                productos={resultado}
+                                busquedaProducto={ this.busquedaProducto }
                             />
                         )}/>
 
