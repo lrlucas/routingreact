@@ -53,7 +53,7 @@ export default class Router extends Component {
 
 
         return (
-            <BrowserRouter>
+            <BrowserRouter basename="/routingreact/">
                 <div className="contenedor">
 
                     <Header/>
