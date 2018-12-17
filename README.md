@@ -1,44 +1,61 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Guia de deploy en GitHub Page
 
-In the project directory, you can run:
+1.- Instalar el paquete necesario
 
-### `npm start`
+`npm install gh-pages --save-dev`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2.- Agregar una propiedad en el package.json, despues de la propiedad `private`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+   `http://{username}.github.io/{repo-name}`
+   
+    donde {username} es nuestro usuario de github, y {repo-name} es el nombre
+    de nuestro repositorio.
+   
+    Ejemplo: "homepage": "https://lrlucas.github.io/routingreact"
+   
+3.- Agregar 2 scrips al package.json
 
-### `npm test`
+    "scripts": {  
+      //...  
+      "predeploy": "npm run build",  
+      "deploy": "gh-pages -d build"  
+    }
+    
+4.- Modificar el Router de nuestra aplicacion especificamente la etiqueta
+`BrowserRouter` y agregarle la propiedad `basename="/{repo-name}/"` donde `{repo-name}` es el nombre de nuestra rama,
+la propiedad `basename` recibe como parametro el subdominio donde va a estar alojado el router de una aplicacion
+y como github page trabaja con subdominios esto hara que cada ves que despleguemos
+una pagina usando este hosting github page, tomara el nombre de nuestro repositorio como nombre para el subdominio donde desplegara nuestra aplicacion
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ejemplo de como debe quedar la propiedad
+ 
+    <BrowserRouter basename="/routingreact/">
+    //... resto del codigo
+    </BrowserRouter>
+    
+Mas informacion sobre la propiedad `basename` en el siguiente link [react-router-api](https://reacttraining.com/react-router/web/api/BrowserRouter/basename-string)
+    
+4.- Compilar la aplicacion de React
 
-### `npm run build`
+    Ejecutar el siguiente comando `npm run deploy`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+5.- Hacer un commit de los ultimos cambios realizados
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    git add .
+    git commit -m "Create a React app and publish it to GitHub Pages" 
+    git push origin master
+    
+6.- Una ves subidos los ultimos cambios al repositorio y despues de haber compilado, ir al repositorio en github
+notaran que tiene una nueva rama creada, esa rama la creo el paquete de gh-page donde estan los archivos compilados de nuestro proyecto,
+ahora el siguiente paso es ir a las configuracion de nuestro proyecto,
+en el apartado de settings hacemos scroll esta encontrar la seccion de GitHub Pages
+ahi tenemos que elegir el source de nuestra aplicacion para termine el proceso de deploy,
+seleccionamos `gh-pages branch` y damos click en save.  
+Con eso se habilitara la url de nuestro proyecto
+una url que nosotros podemos compartir con nuestros amigos 
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para mas informacion sobre el paquete `gh-pages` visitar [info](https://github.com/gitname/react-gh-pages)
