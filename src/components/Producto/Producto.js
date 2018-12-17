@@ -9,7 +9,7 @@ const Producto = (props) => {
         <li>
             <Link to={`/producto/${id}`}>
 
-                <img src={`img/${imagen}.png`} alt={nombre}/>
+                <img src={`./img/${imagen}.png`} alt={nombre}/>
             </Link>
             <p>{nombre} <span> $ {precio}</span></p>
             <Link to={`/producto/${id}`}>Mas informacion</Link>
