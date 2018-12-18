@@ -11,7 +11,7 @@ const SingleProducto = (props) => {
         <div className="info-producto">
 
             <div className="imagen">
-                <img src={`./img/${imagen}.png`} alt={nombre}/>
+                <img src={`../img/${imagen}.png`} alt={nombre}/>
             </div>
 
             <div className="info">
